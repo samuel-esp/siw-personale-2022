@@ -13,7 +13,7 @@ import javax.persistence.Id;
 @Entity
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter
-public class Stadio {
+public class Citta{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,7 +21,6 @@ public class Stadio {
 
     private String nome;
 
-    private String indirizzo;
-
+    private String nazione;
 
 }
