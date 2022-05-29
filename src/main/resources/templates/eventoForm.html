@@ -58,7 +58,7 @@
                             <div class="col-2">
                                 <div class="input-group" th:object="${artistaList}">
                                     <label class="label">Artista</label>
-                                    <label for="select-box4" class="label select-box1"><span class="label-desc" th:text="${artistaList[0].nomeArtistico}"></span> </label>
+                                    <label for="select-box4" class="label select-box1"><span class="label-desc" th:if="${artistaList.size!=0}" th:text="${artistaList[0].nomeArtistico}"></span> </label>
                                     <select id="select-box4" class="select" name="artista" required>
                                         <option th:each="artista : ${artistaList}" th:value="${artista.id}" th:text="${artista.nomeArtistico}"></option>
                                     </select>
@@ -67,7 +67,7 @@
                             <div class="col-2">
                                 <div class="input-group" th:object="${stadioList}">
                                     <label class="label">Stadio</label>
-                                    <label for="select-box5" class="label select-box1"><span class="label-desc" th:text="${stadioList[0].nome}"></span> </label>
+                                    <label for="select-box5" class="label select-box1"><span class="label-desc" th:if="${stadioList.size!=0}" th:text="${stadioList[0].nome}"></span> </label>
                                     <select id="select-box5" class="select" name="stadio" required>
                                         <option th:each="stadio : ${stadioList}" th:value="${stadio.id}" th:text="${stadio.nome}"></option>
                                     </select>
