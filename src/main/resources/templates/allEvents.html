@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifica Buffet</title>
+
+    <link th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js}" rel="stylesheet">
+    <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js}" rel="stylesheet">
+
+    <link th:href="@{/assets/img/block.png}" rel="icon">
+    <link th:href="@{/assets/vendorForm/mdi-font/css/material-design-iconic-font.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{/assets/vendorForm/font-awesome-4.7/css/font-awesome.min.css}" rel="stylesheet" media="all">
+
+    <link th:href="@{https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i}" rel="stylesheet">
+
+
+    <link th:href="@{/assets/vendorForm/select2/select2.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{/assets/vendorForm/datepicker/daterangepicker.css}" rel="stylesheet" media="all">
+
+    <link th:href="@{/assets/css/form.css}" rel="stylesheet" media="all">
+</head>
+<style>
+    @import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700);
+
+    body {
+        background: -webkit-gradient(linear, left bottom, right top, from(#eb3349), to(#f45c43));
+    }
+
+    .container{
+        margin-top:100px;
+    }
+    .card {
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 0px solid transparent;
+        border-radius: 0px;
+    }
+    }
+
+    .card-body {
+        -webkit-box-flex: 1;
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+        padding: 1.70rem;
+    }
+
+    .card .card-title {
+        position: relative;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+
+    .table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 1rem;
+        background-color: transparent;
+    }
+
+    * {
+        outline: none;
+    }
+
+    .table th, .table thead th {
+        font-weight: 500;
+    }
+
+
+    .table thead th {
+        vertical-align: bottom;
+        border-bottom: 2px solid #dee2e6;
+    }
+
+
+    .table th {
+        padding: 1rem;
+        vertical-align: top;
+        border-top: 1px solid #dee2e6;
+    }
+
+
+    .table th, .table thead th {
+        font-weight: 500;
+    }
+
+
+    th {
+        text-align: inherit;
+    }
+
+
+    .m-b-20 {
+        margin-bottom: 20px;
+    }
+
+
+    .customcheckbox {
+        display: block;
+        position: relative;
+        padding-left: 24px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 1rem;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+
+    .customcheckbox input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .checkmark {
+        position: absolute;
+        top: -3px;
+        left: 0;
+        height: 20px;
+        width: 20px;
+        background-color: #CDCDCD;
+        border-radius: 6px;
+    }
+
+
+    .customcheckbox input:checked ~ .checkmark {
+        background-color: #2196BB;
+    }
+
+
+    .customcheckbox .checkmark:after {
+        left: 8px;
+        top: 4px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+
+    .card{
+        border-radius: 15px;
+    }
+
+</style>
+<body>
+<div class="topnav">
+    <a href="/admin/artistaForm">Aggiungi Artista</a>
+    <a class="active" href="/admin/cittaForm">Aggiungi Citta</a>
+    <a href="/admin/stadioForm">Aggiungi Stadio</a>
+    <a href="/admin/eventoForm">Aggiungi Evento</a>
+    <a href="/admin/eventi">Modifca Eventi</a>
+    <a href="/admin/piattoForm">Aggiungi Piatto</a>
+    <a href="/logout">Logout</a>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title m-b-0">Modifica Buffet Inseriti</h5>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Nome Buffet</th>
+                            <th scope="col">Chef</th>
+                            <th scope="col">Descrizione</th>
+                            <th scope="col">Prezzo</th>
+                            <th scope="col">Edit</th>
+                        </tr>
+                        </thead>
+                        <tbody class="customtable">
+                        <tr th:each="buffet : ${buffetList}">
+                            <td><span th:text="${buffet.nome}">Nome</span></td>
+                            <td><span th:text="${buffet.chef.nome + ' ' + buffet.chef.cognome}">Chef</span></td>
+                            <td><span th:text="${buffet.descrizione}">Descrizione</span></td>
+                            <td><span th:text="${buffet.prezzoInt}">Prezzo</span></td>
+                            <td>
+                                <a th:href="@{/admin/editBuffetForm/} + ${buffet.id}">
+                                    <u>Edit</u>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

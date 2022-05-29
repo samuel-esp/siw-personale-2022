@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CittaRepository extends JpaRepository<Citta, Long> {
+
 }

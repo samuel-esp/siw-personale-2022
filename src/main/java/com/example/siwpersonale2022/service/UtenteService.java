@@ -34,4 +34,12 @@ public class UtenteService {
         utente.setPassword(encodedPassword);
         utenteRepository.save(utente);
     }
+
+    public List<Utente> getAllUsers() {
+        return utenteRepository.findAll();
+    }
+
+    public Utente getUserById(Long id){
+        return utenteRepository.findById(id).get();
+    }
 }

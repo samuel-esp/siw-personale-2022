@@ -5,10 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor @NoArgsConstructor
@@ -21,7 +19,14 @@ public class Stadio {
 
     private String nome;
 
+    @ManyToOne
+    @JoinColumn(name = "citta_id")
+    private Citta citta;
+
     private String indirizzo;
+
+    @OneToMany(mappedBy = "stadio", orphanRemoval = true)
+    private List<Evento> eventoList = new java.util.ArrayList<>();
 
 
 }

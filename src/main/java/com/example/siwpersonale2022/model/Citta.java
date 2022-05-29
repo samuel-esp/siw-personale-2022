@@ -5,15 +5,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.LinkedList;
+import java.util.List;
 
 @Entity
-@AllArgsConstructor @NoArgsConstructor
-@Getter @Setter
-public class Citta{
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class Citta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,5 +23,8 @@ public class Citta{
     private String nome;
 
     private String nazione;
+
+    @OneToMany(mappedBy = "citta")
+    private List<Stadio> stadioList = new java.util.ArrayList<>();
 
 }

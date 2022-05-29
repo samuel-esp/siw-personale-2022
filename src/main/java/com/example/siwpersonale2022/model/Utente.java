@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor @NoArgsConstructor
@@ -45,5 +46,8 @@ public class Utente {
 
     @NotNull
     private String role;
+
+    @OneToMany(mappedBy = "utente", orphanRemoval = true)
+    private List<Prenotazione> prenotazioneList = new java.util.ArrayList<>();
 
 }

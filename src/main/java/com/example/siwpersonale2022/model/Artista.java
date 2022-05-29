@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor @NoArgsConstructor
@@ -20,5 +21,7 @@ public class Artista {
 
     private String nazionalita;
 
+    @OneToMany(mappedBy = "artista", orphanRemoval = true)
+    private List<Evento> eventoList = new java.util.ArrayList<>();
 
 }
