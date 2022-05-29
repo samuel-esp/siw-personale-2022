@@ -1,12 +1,17 @@
 package com.example.siwpersonale2022.controller;
 
 import com.example.siwpersonale2022.model.Evento;
+import com.example.siwpersonale2022.model.Prenotazione;
 import com.example.siwpersonale2022.model.Stadio;
+import com.example.siwpersonale2022.model.Utente;
 import com.example.siwpersonale2022.model.dto.EditEventoDto;
 import com.example.siwpersonale2022.service.ArtistaService;
 import com.example.siwpersonale2022.service.EventoService;
 import com.example.siwpersonale2022.service.StadioService;
+import com.example.siwpersonale2022.service.UtenteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,6 +31,9 @@ public class EventoController {
 
     @Autowired
     private StadioService stadioService;
+
+    @Autowired
+    private UtenteService utenteService;
 
     @GetMapping("/admin/eventoForm")
     public String getEventoForm(Model model){
@@ -96,4 +104,23 @@ public class EventoController {
         return "redirect:/admin/eventi";
 
     }
+
+    @GetMapping("/eventi")
+    public String getEventiUser(Model model){
+
+        model.addAttribute("eventiList", eventoService.getAllEventi());
+
+        return "allEventsUser";
+
+    }
+
+    @GetMapping("/evento/info/{id}")
+    public String getEventoInfo(@PathVariable String id, Model model){
+
+        Evento evento = eventoService.getEventoById(Long.parseLong(id));
+        model.addAttribute("evento", evento);
+
+        return "eventoInfo";
+    }
+
 }

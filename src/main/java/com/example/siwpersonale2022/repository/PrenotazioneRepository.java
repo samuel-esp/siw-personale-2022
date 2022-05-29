@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PrenotazioneRepository extends JpaRepository<Prenotazione, Long> {
 
-
+    void deleteById(Long id);
 
 
 }
