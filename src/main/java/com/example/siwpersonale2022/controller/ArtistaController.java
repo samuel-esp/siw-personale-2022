@@ -24,21 +24,22 @@ public class ArtistaController {
     @GetMapping("/admin/artistaForm")
     public String getArtistaForm(Model model){
 
-        model.addAttribute("stadio", new Stadio());
+        model.addAttribute("artista", new Artista());
 
-        return "stadioForm";
+        return "artistaForm";
     }
 
     @PostMapping("/admin/artistaForm")
     public String postArtistaForm(@Valid @ModelAttribute Artista artista, BindingResult bindingResult, RedirectAttributes redirectAttributes){
 
         if(bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("error", "errore negli input forniti, ricompila il form");
             return "redirect:/admin/stadioForm";
         }
 
         artistaService.saveArtista(artista);
 
-        return "redirect:/admin/allEvents";
+        return "redirect:/admin/eventi";
     }
 
 }

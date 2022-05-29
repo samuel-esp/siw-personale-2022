@@ -4,8 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.util.Date;
 import java.util.List;
 
@@ -18,13 +21,22 @@ public class Evento {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Date date;
+    @NotNull
+    private String nome;
 
+    @NotNull
+    private String descrizione;
+
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date data;
+
+    @Positive
     private Integer capienza;
 
+    @NotNull
+    @Positive
     private Integer prezzoInt;
-
-    private String tipologia;
 
     @ManyToOne
     @JoinColumn(name = "stadio_id")

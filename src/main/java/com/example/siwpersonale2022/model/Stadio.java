@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Positive;
 import java.util.List;
 
 @Entity
@@ -24,6 +25,9 @@ public class Stadio {
     private Citta citta;
 
     private String indirizzo;
+
+    @Positive
+    private Integer capienza;
 
     @OneToMany(mappedBy = "stadio", orphanRemoval = true)
     private List<Evento> eventoList = new java.util.ArrayList<>();

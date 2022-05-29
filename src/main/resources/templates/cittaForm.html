@@ -8,7 +8,7 @@
     <meta name="author" content="Colorlib">
     <meta name="keywords" content="Colorlib Templates">
 
-    <title>Inserisci Chef</title>
+    <title>Inserisci Citta</title>
 
     <link th:href="@{/assets/img/block.png}" rel="icon">
     <link th:href="@{/assets/vendorForm/mdi-font/css/material-design-iconic-font.min.css}" rel="stylesheet" media="all">
@@ -24,45 +24,44 @@
 </head>
 
 <body>
+<div class="error" role="alert" th:text="${error}" th:if="${error}"></div>
 <div class="topnav">
     <a href="/admin/artistaForm">Aggiungi Artista</a>
     <a class="active" href="/admin/cittaForm">Aggiungi Citta</a>
     <a href="/admin/stadioForm">Aggiungi Stadio</a>
     <a href="/admin/eventoForm">Aggiungi Evento</a>
     <a href="/admin/eventi">Modifca Eventi</a>
-    <a href="/admin/piattoForm">Aggiungi Piatto</a>
     <a href="/logout">Logout</a>
 </div>
 
-    <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
-        <div class="wrapper wrapper--w680">
-            <div class="card card-4">
-                <div class="card-body">
-                    <h2 class="title">Chef Form</h2>
-                    <form action="#" th:action="@{/admin/cittaForm}" th:object="${citta}" method="post">
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Nome</label>
-                                    <input class="input--style-4" type="text" name="nome" th:field="*{nome}" required>
-                                </div>
+<div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+    <div class="wrapper wrapper--w680">
+        <div class="card card-4">
+            <div class="card-body">
+                <h2 class="title">Inserisci Artista</h2>
+                <form action="#" th:action="@{/admin/cittaForm}" th:object="${citta}" method="post">
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Nome</label>
+                                <input class="input--style-4" type="text" name="nome" th:field="*{nome}" required>
                             </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Cognome</label>
-                                    <input class="input--style-4" type="text" name="nazione" th:field="*{nazione}" required>
-                                </div>
-                            </div>
-                        </div>>
-                            </div>
-                        <div class="p-t-15">
-                            <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
                         </div>
-                    </form>
-                </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Nazione</label>
+                                <input class="input--style-4" type="text" name="nazione" th:field="*{nazione}" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-t-15">
+                        <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 
 
     <script th:src="@{/assets/vendorForm/jquery/jquery.min.js}"></script>

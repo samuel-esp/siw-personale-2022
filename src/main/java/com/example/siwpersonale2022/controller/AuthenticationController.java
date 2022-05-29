@@ -86,7 +86,7 @@ public class AuthenticationController {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Utente utente = utenteService.getUserByEmail(userDetails.getUsername());
         if (utente.getRole().equals(Utente.ADMIN_ROLE)) {
-            return "redirect:/admin/home";
+            return "redirect:/admin/artistaForm";
         }
         return "redirect:/home";
     }

@@ -8,7 +8,7 @@
     <meta name="author" content="Colorlib">
     <meta name="keywords" content="Colorlib Templates">
 
-    <title>Inserisci Chef</title>
+    <title>Inserisci Stadio</title>
 
     <link th:href="@{/assets/img/block.png}" rel="icon">
     <link th:href="@{/assets/vendorForm/mdi-font/css/material-design-iconic-font.min.css}" rel="stylesheet" media="all">
@@ -24,44 +24,61 @@
 </head>
 
 <body>
+<div class="error" role="alert" th:text="${error}" th:if="${error}"></div>
 <div class="topnav">
     <a href="/admin/artistaForm">Aggiungi Artista</a>
-    <a class="active" href="/admin/cittaForm">Aggiungi Citta</a>
-    <a href="/admin/stadioForm">Aggiungi Stadio</a>
+    <a href="/admin/cittaForm">Aggiungi Citta</a>
+    <a class="active" href="/admin/stadioForm">Aggiungi Stadio</a>
     <a href="/admin/eventoForm">Aggiungi Evento</a>
     <a href="/admin/eventi">Modifca Eventi</a>
-    <a href="/admin/piattoForm">Aggiungi Piatto</a>
     <a href="/logout">Logout</a>
 </div>
 
-    <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
-        <div class="wrapper wrapper--w680">
-            <div class="card card-4">
-                <div class="card-body">
-                    <h2 class="title">Chef Form</h2>
-                    <form action="#" th:action="@{/admin/stadioForm}" th:object="${stadio}" method="post">
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Nome</label>
-                                    <input class="input--style-4" type="text" name="first_name" th:field="*{nome}" required>
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Indirizzo</label>
-                                    <input class="input--style-4" type="text" name="last_name" th:field="*{indirizzo}" required>
-                                </div>
+<div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+    <div class="wrapper wrapper--w680">
+        <div class="card card-4">
+            <div class="card-body">
+                <h2 class="title">Inserisci Stadio</h2>
+                <form action="#" th:action="@{/admin/stadioForm}" th:object="${stadio}" method="post">
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Nome</label>
+                                <input class="input--style-4" type="text" name="nome" th:field="*{nome}" required>
                             </div>
                         </div>
-                        <div class="p-t-15">
-                            <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Indirizzo</label>
+                                <input class="input--style-4" type="text" name="nazionalita" th:field="*{indirizzo}" required>
+                            </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Capienza</label>
+                                <input class="input--style-4" type="number" min="0" name="capienza" th:field="*{capienza}" required>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="input-group" th:object="${cittaList}">
+                                <label class="label">Citta</label>
+                                <label for="select-box4" class="label select-box1"><span class="label-desc" th:if="${cittaList.size!=0}" th:text="${cittaList[0].nome}"></span> </label>
+                                <select id="select-box4" class="select" name="citta" required>
+                                    <option th:each="citta : ${cittaList}" th:value="${citta.id}" th:text="${citta.nome}"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-t-15">
+                        <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 
 
     <script th:src="@{/assets/vendorForm/jquery/jquery.min.js}"></script>
@@ -73,5 +90,32 @@
     <script th:src="@{/assets/js/global.js}"></script>
 
 </body>
+
+<script>$("select").on("click" , function() {
+
+    $(this).parent(".select-box").toggleClass("open");
+
+});
+
+$(document).mouseup(function (e)
+{
+    var container = $(".select-box");
+
+    if (container.has(e.target).length === 0)
+    {
+        container.removeClass("open");
+    }
+});
+
+
+$("select").on("change" , function() {
+
+    var selection = $(this).find("option:selected").text(),
+        labelFor = $(this).attr("id"),
+        label = $("[for='" + labelFor + "']");
+
+    label.find(".label-desc").html(selection);
+
+});</script>
 
 </html>

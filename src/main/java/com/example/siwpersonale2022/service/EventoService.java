@@ -24,4 +24,8 @@ public class EventoService {
     public void saveEvento(Evento evento) {
         eventoRepository.save(evento);
     }
+
+    public void deleteEvento(Long id){
+        eventoRepository.deleteById(id);
+    }
 }

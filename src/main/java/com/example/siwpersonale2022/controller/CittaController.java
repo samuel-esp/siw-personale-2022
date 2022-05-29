@@ -32,11 +32,12 @@ public class CittaController {
     public String postCittaForm(@Valid @ModelAttribute Citta citta, BindingResult bindingResult, RedirectAttributes redirectAttributes){
 
        if(bindingResult.hasErrors()){
+           redirectAttributes.addFlashAttribute("error", "errore negli input forniti, ricompila il form");
            return "redirect:/admin/cittaForm";
        }
 
        cittaService.saveCitta(citta);
 
-       return "redirect:/admin/allEvents";
+       return "redirect:/admin/eventi";
     }
 }
