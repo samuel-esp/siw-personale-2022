@@ -2,6 +2,7 @@ package com.example.siwpersonale2022.controller;
 
 import com.example.siwpersonale2022.model.Evento;
 import com.example.siwpersonale2022.model.Stadio;
+import com.example.siwpersonale2022.model.dto.EditEventoDto;
 import com.example.siwpersonale2022.service.ArtistaService;
 import com.example.siwpersonale2022.service.EventoService;
 import com.example.siwpersonale2022.service.StadioService;
@@ -65,9 +66,25 @@ public class EventoController {
     @GetMapping("/admin/editEvento/{id}")
     public String editEvento(@PathVariable String id, Model model){
 
-        model.addAttribute("evento", eventoService.getEventoById(Long.parseLong(id)));
+        Evento evento = eventoService.getEventoById(Long.parseLong(id));
+        EditEventoDto editEventoDto = new EditEventoDto();
+        editEventoDto.setData(evento.getData());
+        editEventoDto.setPrezzoInt(evento.getPrezzoInt());
+        editEventoDto.setId(evento.getId());
+        model.addAttribute("evento", editEventoDto);
 
-        return "editEvento";
+        return "editEventoForm";
+    }
+
+    @PostMapping("/admin/editEvento/{id}")
+    public String editEventoPost(@ModelAttribute EditEventoDto editEventoDto, @PathVariable String id, Model model){
+
+        Evento evento = eventoService.getEventoById(Long.parseLong(id));
+        evento.setData(editEventoDto.getData());
+        evento.setPrezzoInt(editEventoDto.getPrezzoInt());
+        eventoService.saveEvento(evento);
+
+        return "redirect:/admin/eventi";
     }
 
 

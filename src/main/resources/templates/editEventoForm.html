@@ -29,109 +29,35 @@
 </head>
 
 <body>
-    <div class="topnav">
-        <a href="/admin/buffetForm">Aggiungi Buffet</a>
-        <a class="active" href="/admin/allBuffet">Modifica Buffet</a>
-        <a href="/admin/ingredienteForm">Aggiungi Ingrediente</a>
-        <a href="/admin/chefForm">Aggiungi Chef</a>
-        <a href="/admin/piattoForm">Aggiungi Piatto</a>
-        <a href="/logout">Logout</a>
-    </div>
+<div class="error" role="alert" th:text="${error}" th:if="${error}"></div>
+<div class="topnav">
+    <a href="/admin/artistaForm">Aggiungi Artista</a>
+    <a href="/admin/cittaForm">Aggiungi Citta</a>
+    <a href="/admin/stadioForm">Aggiungi Stadio</a>
+    <a href="/admin/eventoForm">Aggiungi Evento</a>
+    <a class="active" href="/admin/eventi">Modifca Eventi</a>
+    <a href="/logout">Logout</a>
+</div>
 
     <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
         <div class="wrapper wrapper--w680">
             <div class="card card-4">
                 <div class="card-body">
                     <h2 class="title">Modifica Evento</h2>
-                    <form id="form" action="#" th:action="@{/admin/editBuffetForm/} + ${buffet.id}" th:object="${buffet}" method="post">
+                    <form id="form" action="#" th:action="@{/admin/editEvento/} + ${evento.id}" th:object="${evento}" method="post">
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
-                                    <label class="label">Nome Buffet</label>
-                                    <input class="input--style-4" type="text" name="nome" th:field="*{nome}" required>
+                                    <label class="label">Data Svolgimento</label>
+                                    <div class="input-group-icon">
+                                        <input class="input--style-4 js-datepicker" type="date" name="data" th:attr="min=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" th:field="*{data}" required>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Descrizione Buffet</label>
-                                    <input class="input--style-4" type="text" name="descrizione" th:field="*{descrizione}" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Prezzo</label>
-                                    <input class="input--style-4" type="number" name="prezzo" th:field="*{prezzoInt}" required>
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Chef</label>
-                                    <label for="select-box3" class="label select-box1"><span class="label-desc">Chef</span> </label>
-                                    <select id="select-box3" class="select" th:object="${chefList}" name="chefSelected" required>
-                                        <option th:each="chef : ${chefList}" th:value="${chef.id}" th:text="${chef.nome + ' ' + chef.cognome}"></option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Primo 1</label>
-                                    <label for="select-box4" class="label select-box1"><span class="label-desc">Seleziona Primo 1</span> </label>
-                                    <select id="select-box4" class="select" th:object="${primo11}" name="primo11" required>
-                                        <option th:each="primo11 : ${primo11}" th:value="${primo11.id}" th:text="${primo11.nome}"></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Primo 2</label>
-                                    <label for="select-box5" class="label select-box1"><span class="label-desc">Seleziona Primo 2</span> </label>
-                                    <select id="select-box5" class="select" th:object="${primo12}" name="primo12" required>
-                                        <option th:each="primo12 : ${primo12}" th:value="${primo12.id}" th:text="${primo12.nome}"></option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Secondo 1</label>
-                                    <label for="select-box6" class="label select-box1"><span class="label-desc">Seleziona Secondo 1</span> </label>
-                                    <select id="select-box6" class="select" th:object="${secondo11}" name="secondo11" required>
-                                        <option th:each="secondo11 : ${secondo11}" th:value="${secondo11.id}" th:text="${secondo11.nome}"></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Secondo 2</label>
-                                    <label for="select-box7" class="label select-box1"><span class="label-desc">Seleziona Secondo 2</span> </label>
-                                    <select id="select-box7" class="select" th:object="${secondo12}" name="secondo12" required>
-                                        <option th:each="secondo12 : ${secondo12}" th:value="${secondo12.id}" th:text="${secondo12.nome}"></option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Dolce 1</label>
-                                    <label for="select-box8" class="label select-box1"><span class="label-desc">Seleziona Dolce 1</span> </label>
-                                    <select id="select-box8" class="select" th:object="${dolce11}" name="dolce11" required>
-                                        <option th:each="dolce11 : ${dolce11}" th:value="${dolce11.id}" th:text="${dolce11.nome}"></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Dolce 2</label>
-                                    <label for="select-box9" class="label select-box1"><span class="label-desc">Seleziona Dolce 2</span> </label>
-                                    <select id="select-box9" class="select" th:object="${dolce2}" name="dolce12" required>
-                                        <option th:each="dolce12 : ${dolce12}" th:value="${dolce12.id}" th:text="${dolce12.nome}"></option>
-                                    </select>
+                                    <input class="input--style-4" type="number" min="0" name="prezzo" th:field="*{prezzoInt}" required>
                                 </div>
                             </div>
                         </div>
