@@ -81,7 +81,6 @@
     <script th:src="@{/assets/js/global.js}"></script>
 
 </body>
-
 <script>$("select").on("click" , function() {
 
     $(this).parent(".select-box").toggleClass("open");
@@ -107,32 +106,5 @@ $("select").on("change" , function() {
 
     label.find(".label-desc").html(selection);
 
-});
-</script>
-<script>
-    $('form').submit(function(e) {
-    var bk1 = document.getElementById("select-box4").value;
-    var bk2 = document.getElementById("select-box5").value;
-    var bk3 = document.getElementById("select-box6").value;
-    var bk4 = document.getElementById("select-box7").value;
-    var bk5 = document.getElementById("select-box8").value;
-    var bk6 = document.getElementById("select-box9").value;
-
-    var test = [bk1, bk2, bk3, bk4, bk5, bk6];
-    var res = true;
-    for(var i = 0; i < test.length; i++) {
-        if (test.indexOf(test[i], i + 1) >= 0) {
-            res = false;
-            break;
-        }
-    }
-
-    if(res){
-        document.block_form.submit();
-    }else{
-        alert("Per uno stesso catering non possono esserci due primi uguali, due secondi uguali o due dolci uguali! Correggi prima di continuare");
-        e.preventDefault();
-        document.getElementById("block_error").value = "Multiple blocks have same selected option";
-    }});
-</script>
+});</script>
 </html>

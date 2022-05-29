@@ -1,14 +1,9 @@
 package com.example.siwpersonale2022.controller;
 
-import com.example.siwpersonale2022.model.Evento;
-import com.example.siwpersonale2022.model.Prenotazione;
-import com.example.siwpersonale2022.model.Stadio;
-import com.example.siwpersonale2022.model.Utente;
+import com.example.siwpersonale2022.model.*;
+import com.example.siwpersonale2022.model.dto.CittaSearchDto;
 import com.example.siwpersonale2022.model.dto.EditEventoDto;
-import com.example.siwpersonale2022.service.ArtistaService;
-import com.example.siwpersonale2022.service.EventoService;
-import com.example.siwpersonale2022.service.StadioService;
-import com.example.siwpersonale2022.service.UtenteService;
+import com.example.siwpersonale2022.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +13,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.print.DocFlavor;
 import javax.validation.Valid;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
 
 @Controller
 public class EventoController {
@@ -34,6 +33,9 @@ public class EventoController {
 
     @Autowired
     private UtenteService utenteService;
+
+    @Autowired
+    private CittaService cittaService;
 
     @GetMapping("/admin/eventoForm")
     public String getEventoForm(Model model){
@@ -121,6 +123,56 @@ public class EventoController {
         model.addAttribute("evento", evento);
 
         return "eventoInfo";
+    }
+
+    @GetMapping("/eventiCitta")
+    public String getEventiByCittaForm(Model model){
+
+        model.addAttribute("cittaList", cittaService.getAllCitta());
+
+        return "eventoCittaForm";
+    }
+
+    @GetMapping("/eventiArtista")
+    public String getEventiByArtistaForm(Model model){
+
+        model.addAttribute("artistiList", artistaService.getAllArtisti());
+
+        return "eventoArtistaForm";
+    }
+
+    @PostMapping("/eventiCitta/find")
+    public String getEventiByCitta(@RequestParam("citta") String id, Model model){
+
+        Citta citta = cittaService.getCittaById(Long.parseLong(id));
+        List<Evento> eventoList = eventoService.getAllEventi();
+        List<Evento> resultList = new LinkedList<>();
+        for(Evento evento: eventoList){
+            if(evento.getStadio().getCitta()==citta){
+                resultList.add(evento);
+            }
+        }
+
+        resultList.sort(new Comparator<Evento>() {
+            @Override
+            public int compare(Evento o1, Evento o2) {
+                return o1.getData().compareTo(o2.getData());
+            }
+        });
+
+        model.addAttribute("eventiList", resultList);
+
+        return "allEventsUser";
+    }
+
+
+    @PostMapping("/eventiArtista/find")
+    public String getEventiByArtista(@PathVariable String id, Model model){
+
+        List<Evento> resultList = eventoService.getEventiByArtista(Long.parseLong(id));
+        model.addAttribute("eventiList", resultList);
+
+        return "allEventsUser";
     }
 
 }

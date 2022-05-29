@@ -88,7 +88,7 @@ public class AuthenticationController {
         if (utente.getRole().equals(Utente.ADMIN_ROLE)) {
             return "redirect:/admin/artistaForm";
         }
-        return "redirect:/home";
+        return "redirect:/eventi";
     }
 
 }
