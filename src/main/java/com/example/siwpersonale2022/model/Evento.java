@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.Date;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class Evento {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date data;
 
-    @Positive
+    @PositiveOrZero
     private Integer capienza;
 
     @NotNull

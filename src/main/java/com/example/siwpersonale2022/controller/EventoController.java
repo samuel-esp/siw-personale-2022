@@ -1,19 +1,15 @@
 package com.example.siwpersonale2022.controller;
 
 import com.example.siwpersonale2022.model.*;
-import com.example.siwpersonale2022.model.dto.CittaSearchDto;
 import com.example.siwpersonale2022.model.dto.EditEventoDto;
 import com.example.siwpersonale2022.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.print.DocFlavor;
 import javax.validation.Valid;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -68,7 +64,7 @@ public class EventoController {
     @GetMapping("/admin/eventi")
     public String getAllEvents(Model model){
 
-        model.addAttribute("eventiList", eventoService.getAllEventi());
+        model.addAttribute("eventiList", eventoService.getAllEventiAdmin());
 
         return "allEventsAdmin";
     }
@@ -110,7 +106,7 @@ public class EventoController {
     @GetMapping("/eventi")
     public String getEventiUser(Model model){
 
-        model.addAttribute("eventiList", eventoService.getAllEventi());
+        model.addAttribute("eventiList", eventoService.getAllEventiUser());
 
         return "allEventsUser";
 
@@ -145,11 +141,13 @@ public class EventoController {
     public String getEventiByCitta(@RequestParam("citta") String id, Model model){
 
         Citta citta = cittaService.getCittaById(Long.parseLong(id));
-        List<Evento> eventoList = eventoService.getAllEventi();
+        List<Evento> eventoList = eventoService.getAllEventiUser();
         List<Evento> resultList = new LinkedList<>();
         for(Evento evento: eventoList){
             if(evento.getStadio().getCitta()==citta){
-                resultList.add(evento);
+                if(evento.getCapienza()>0) {
+                    resultList.add(evento);
+                }
             }
         }
 
