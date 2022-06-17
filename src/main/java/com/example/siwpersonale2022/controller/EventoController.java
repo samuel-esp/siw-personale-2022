@@ -164,8 +164,8 @@ public class EventoController {
     }
 
 
-    @PostMapping("/eventiArtista/find/{id}")
-    public String getEventiByArtista(@PathVariable String id, Model model){
+    @PostMapping("/eventiArtista/find/")
+    public String getEventiByArtista(@RequestParam("artista") String id, Model model){
 
         List<Evento> resultList = eventoService.getEventiByArtista(Long.parseLong(id));
         model.addAttribute("eventiList", resultList);
