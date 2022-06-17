@@ -41,7 +41,7 @@
                     <div class="row row-space">
                         <div class="col-2">
                             <div class="input-group">
-                                <label class="label">Citta</label>
+                                <label class="label">Artista</label>
                                 <label for="select-box4" class="label select-box1"><span class="label-desc" th:if="${artistiList.size!=0}" th:text="${artistiList[0].nomeArtistico}"></span> </label>
                                 <select id="select-box4" class="select" th:object="${artistiList}" name="artista" required>
                                     <option th:each="artista : ${artistiList}" th:value="${artista.id}" th:text="${artista.nomeArtistico}"></option>
